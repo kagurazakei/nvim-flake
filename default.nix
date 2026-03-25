@@ -5,7 +5,6 @@
   dev ? false,
   sources ? import ./npins,
 }:
-
 let
   appName = "nvim-zakei";
   initLua = ./nvim/init.lua;

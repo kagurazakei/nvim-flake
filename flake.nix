@@ -33,7 +33,7 @@
       packages = forAllSystems (pkgs: {
 
         default = import ./default.nix {
-          inherit mnw pkgs neovim-nightly;
+          inherit mnw pkgs;
           lib = pkgs.lib;
         };
         small = import ./default.nix {

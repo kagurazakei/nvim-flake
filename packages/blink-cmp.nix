@@ -23,6 +23,8 @@ let
         cp -r lua plugin doc $out/
         runHook postInstall
       '';
+
+      env.RUSTC_BOOTSTRAP = true;
     });
 in
 vimPlugins.extend (

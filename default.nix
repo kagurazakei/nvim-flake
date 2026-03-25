@@ -2,7 +2,6 @@
   pkgs,
   mnw,
   lib,
-  neovim-nightly,
   dev ? false,
   sources ? import ./npins,
 }:
@@ -10,7 +9,8 @@
 let
   appName = "nvim-zakei";
   initLua = ./nvim/init.lua;
-  vimPlugins = pkgs.callPackage ./packages/blink-cmp.nix { inherit sources; };
+  vimPlugins-cmp = pkgs.callPackage ./packages/blink-pair.nix { inherit sources; };
+  vimPlugins-pairs = pkgs.callPackage ./packages/blink-cmp.nix { inherit sources; };
   externalTools = {
     inherit (pkgs) curl ripgrep imagemagick;
   }
@@ -54,11 +54,14 @@ in
 
 mnw.lib.wrap pkgs {
   inherit appName;
-  inherit (neovim-nightly.packages.${pkgs.stdenv.system}) neovim;
+  neovim = pkgs.neovim.unwrapped.overrideAttrs (old: {
+    version = "nightly";
+    src = sources.neovim;
+    doInstallCheck = false;
+  });
   luaFiles = [
     initLua
   ];
-
   plugins = {
     dev.config = {
       impure = "~/Projects/nvim-flake";
@@ -77,9 +80,9 @@ mnw.lib.wrap pkgs {
       # "blink.nix" = pkgs.vimPlugins.blink-cmp-nixpkgs-maintainers;
       "cord.nvim" = pkgs.vimPlugins.cord-nvim;
       "hyprlang" = pkgs.vimPlugins.nvim-treesitter-parsers.hyprlang;
-      "blink.cmp" = vimPlugins.blink-cmp;
+      "blink.cmp" = vimPlugins-cmp.blink-cmp;
+      "blink.pairs" = vimPlugins-pairs.blink-pairs;
     };
-
     startAttrs = mnw.lib.npinsToPluginsAttrs pkgs ./start-plugins.json // {
       inherit (pkgs.vimPlugins) nvim-treesitter;
     };

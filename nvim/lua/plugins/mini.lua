@@ -2,6 +2,7 @@ return {
   "mini.nvim",
   after = function()
     require("mini.ai").setup({ n_lines = 500 })
+    require("mini.cursorword").setup()
     require("mini.map").setup({
       integrations = nil,
       symbols = {

@@ -43,7 +43,6 @@ Add this flake as an input
     inputs.nvim-flake.packages.${pkgs.stdenv.system}.neovim
       (pkgs.callPackage "${sources.nvim-flake}/default.nix" {
         inherit mnw pkgs;
-        neovim-nightly = inputs.neovim-nightly;
         lib = pkgs.lib;
         dev = false;
       })
@@ -54,7 +53,6 @@ Add this flake as an input
     inputs.nvim-flake.packages.${pkgs.stdenv.system}.neovim
       (pkgs.callPackage "${sources.nvim-flake}/default.nix" {
         inherit mnw pkgs;
-        neovim-nightly = inputs.neovim-nightly;
         lib = pkgs.lib;
         dev = false;
       })

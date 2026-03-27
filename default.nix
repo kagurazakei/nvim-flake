@@ -81,6 +81,8 @@ mnw.lib.wrap pkgs {
       "hyprlang" = pkgs.vimPlugins.nvim-treesitter-parsers.hyprlang;
       "blink.cmp" = vimPlugins-cmp.blink-cmp;
       "blink.pairs" = vimPlugins-pairs.blink-pairs;
+      "catppuccin-nvim" = pkgs.vimPlugins.catppuccin-nvim;
+      "base16-nvim" = pkgs.vimPlugins.base16-nvim;
     };
     startAttrs = mnw.lib.npinsToPluginsAttrs pkgs ./start-plugins.json // {
       inherit (pkgs.vimPlugins) nvim-treesitter;

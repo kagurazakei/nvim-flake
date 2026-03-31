@@ -8,8 +8,8 @@
 let
   appName = "nvim-zakei";
   initLua = ./nvim/init.lua;
-  vimPlugins-cmp = pkgs.callPackage ./packages/blink-pair.nix { inherit sources; };
-  vimPlugins-pairs = pkgs.callPackage ./packages/blink-cmp.nix { inherit sources; };
+  vimPlugins-cmp = pkgs.callPackage ./packages/blink-cmp.nix { inherit sources; };
+  vimPlugins-neorg = pkgs.callPackage ./packages/neorg.nix { inherit sources; };
   externalTools = {
     inherit (pkgs) curl ripgrep imagemagick;
   }
@@ -80,7 +80,9 @@ mnw.lib.wrap pkgs {
       "cord.nvim" = pkgs.vimPlugins.cord-nvim;
       "hyprlang" = pkgs.vimPlugins.nvim-treesitter-parsers.hyprlang;
       "blink.cmp" = vimPlugins-cmp.blink-cmp;
-      "blink.pairs" = vimPlugins-pairs.blink-pairs;
+      "neorg" = vimPlugins-neorg.neorg;
+      "base16-nvim" = pkgs.vimPlugins.base16-nvim;
+      "catppuccin-nvim" = pkgs.vimPlugins.catppuccin-nvim;
     };
     startAttrs = mnw.lib.npinsToPluginsAttrs pkgs ./start-plugins.json // {
       inherit (pkgs.vimPlugins) nvim-treesitter;

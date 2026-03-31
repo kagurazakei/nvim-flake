@@ -36,26 +36,25 @@ return {
       -- fine for most cases. We only keep going if we're doing anything other than
       -- `cic`
       -- TODO: is checking mode unnecessary here?
-      if vim.fn.mode() ~= "V" or operator ~= "c" then
-        return
-      end
+      if vim.fn.mode() ~= "V" or operator ~= "c" then return end
 
       -- Adjust selection to be charwise and not include edge comment parts
-      local comment_left, comment_right = vim.bo.commentstring:match("^(.*)%%s(.*)$")
-      if comment_left == nil then
-        return
-      end
+      local comment_left, comment_right =
+        vim.bo.commentstring:match("^(.*)%%s(.*)$")
+      if comment_left == nil then return end
 
       -- NOTE: this depends on implementation detail that `MiniComment.textobject`
       -- puts cursor on last line of comment block
       local from_line, to_line = vim.fn.line("v"), vim.fn.line(".")
 
       vim.fn.feedkeys("v", "nx")
-      local to_col = vim.fn.getline(to_line):find(vim.pesc(comment_right) .. "%s*$")
+      local to_col =
+        vim.fn.getline(to_line):find(vim.pesc(comment_right) .. "%s*$")
       vim.api.nvim_win_set_cursor(0, { to_line, to_col - 2 })
 
       vim.fn.feedkeys("o", "nx")
-      local _, from_col = vim.fn.getline(from_line):find("^%s*" .. vim.pesc(comment_left))
+      local _, from_col =
+        vim.fn.getline(from_line):find("^%s*" .. vim.pesc(comment_left))
       vim.api.nvim_win_set_cursor(0, { from_line, from_col })
       vim.fn.feedkeys("o", "nx")
     end
@@ -69,9 +68,7 @@ return {
       -- This represents the commentstr not being found in the line. Not sure how
       -- the end index could be nil if the start index wasn't, but better safe than
       -- sorry
-      if comment_start == nil or comment_end == nil then
-        return nil
-      end
+      if comment_start == nil or comment_end == nil then return nil end
 
       -- This is only for EOL comments, since mini.comment handles the other ones.
       -- Therefore, we can assume the comment will only be on one line, and can
@@ -93,7 +90,8 @@ return {
         from_col = comment_end
       elseif operator == "d" then
         -- TODO: include multiple leading spaces, instead of just one
-        local char_before_comment = line:sub(comment_start - 1, comment_start - 1)
+        local char_before_comment =
+          line:sub(comment_start - 1, comment_start - 1)
         local offset = char_before_comment == " " and 2 or 1
         from_col = comment_start - offset
       else
@@ -158,7 +156,7 @@ return {
         goto_top = "",
         goto_bottom = "",
       },
-      symbol = "╎",
+      symbol = "┋",
     })
   end,
 }

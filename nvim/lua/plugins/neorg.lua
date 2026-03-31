@@ -1,24 +1,8 @@
 return {
   "neorg",
   cmd = "Neorg",
+  build = ":Neorg sync-parsers",
   ft = "norg",
-  keys = {
-    {
-      "<leader>nt",
-      "<CMD>Neorg toc left<CR>",
-      desc = "Neorg Table of contents",
-    },
-    {
-      "<leader>nj",
-      "<CMD>Neorg journal today<CR>",
-      desc = "Neorg Journal Today",
-    },
-    {
-      "<leader>nJ",
-      "<CMD>Neorg journal toc update<CR>",
-      desc = "Neorg Journal TOC",
-    },
-  },
   after = function()
     require("neorg").setup({
       load = {
@@ -33,10 +17,10 @@ return {
         ["core.dirman"] = {
           config = {
             workspaces = {
-              notes = "~/Documents/Mine/Notes",
-              oracle = "~/Everwinter/md/oracle/",
-              journal = "~/Documents/Mine/Brain/",
+              notes = "~/Documents/notes",
+              work = "~/Documents/oracle",
             },
+            default_workspace = "notes", -- Sets 'notes' as the default workspace on startup
           },
         },
         ["core.journal"] = {

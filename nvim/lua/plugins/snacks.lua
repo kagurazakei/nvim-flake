@@ -19,8 +19,9 @@ return {
         },
         indent = {
           enabled = true,
+          char = "┋",
           animate = {
-            enabled = false,
+            enabled = true,
           },
         },
         image = { enabled = true },
@@ -55,17 +56,42 @@ return {
           ---@type snacks.dashboard.Item[]
           preset = {
             keys = {
-              { icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
-              { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
-              { icon = " ", key = "g", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
-              { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
+              {
+                icon = " ",
+                key = "f",
+                desc = "Find File",
+                action = ":lua Snacks.dashboard.pick('files')",
+              },
+              {
+                icon = " ",
+                key = "n",
+                desc = "New File",
+                action = ":ene | startinsert",
+              },
+              {
+                icon = " ",
+                key = "g",
+                desc = "Find Text",
+                action = ":lua Snacks.dashboard.pick('live_grep')",
+              },
+              {
+                icon = " ",
+                key = "r",
+                desc = "Recent Files",
+                action = ":lua Snacks.dashboard.pick('oldfiles')",
+              },
               {
                 icon = " ",
                 key = "c",
                 desc = "LazyGit",
                 action = ":lua Snacks.lazygit.open()",
               },
-              { icon = " ", key = "s", desc = "Restore Session", section = "session" },
+              {
+                icon = " ",
+                key = "s",
+                desc = "Restore Session",
+                section = "session",
+              },
               { icon = " ", key = "q", desc = "Quit", action = ":qa" },
             },
             header = [[
@@ -83,7 +109,9 @@ return {
           -- item field formatters
           formats = {
             icon = function(item)
-              if item.file and item.icon == "file" or item.icon == "directory" then
+              if
+                item.file and item.icon == "file" or item.icon == "directory"
+              then
                 return require("snacks").dashboard.icon(item.file, item.icon)
               end
               return { item.icon, width = 2, hl = "icon" }
@@ -92,7 +120,10 @@ return {
             header = { "%s", align = "center" },
             file = function(item, ctx)
               local fname = vim.fn.fnamemodify(item.file, ":~")
-              fname = ctx.width and #fname > ctx.width and vim.fn.pathshorten(fname) or fname
+              fname = ctx.width
+                  and #fname > ctx.width
+                  and vim.fn.pathshorten(fname)
+                or fname
               if #fname > ctx.width then
                 local dir = vim.fn.fnamemodify(fname, ":h")
                 local file = vim.fn.fnamemodify(fname, ":t")
@@ -102,20 +133,22 @@ return {
                 end
               end
               local dir, file = fname:match("^(.*)/(.+)$")
-              return dir and { { dir .. "/", hl = "dir" }, { file, hl = "file" } } or { { fname, hl = "file" } }
+              return dir
+                  and { { dir .. "/", hl = "dir" }, { file, hl = "file" } }
+                or { { fname, hl = "file" } }
             end,
           },
 
           sections = {
             {
               section = "terminal",
-              cmd = '{cat ~/tmp/nv.txt; echo "                                           '
+              cmd = "{cat ~/tmp/nv.txt; echo \"                                           "
                 .. vim.version().major
                 .. "."
                 .. vim.version().minor
                 .. "."
                 .. vim.version().patch
-                .. '"} | { command -v lolcat >/dev/null && lolcat || cat; }',
+                .. "\"} | { command -v lolcat >/dev/null && lolcat || cat; }",
               align = "center",
               padding = 0,
             },
@@ -132,9 +165,7 @@ return {
               desc = "Browse Repo",
               padding = 1,
               key = "b",
-              action = function()
-                Snacks.gitbrowse()
-              end,
+              action = function() Snacks.gitbrowse() end,
             },
             function()
               local in_git = Snacks.git.get_root() ~= nil
@@ -157,16 +188,19 @@ return {
                   height = 10,
                 },
               }
-              return vim.tbl_map(function(cmd)
-                return vim.tbl_extend("force", {
-                  pane = 2,
-                  section = "terminal",
-                  enabled = in_git,
-                  padding = 1,
-                  ttl = 5 * 60,
-                  indent = 3,
-                }, cmd)
-              end, cmds)
+              return vim.tbl_map(
+                function(cmd)
+                  return vim.tbl_extend("force", {
+                    pane = 2,
+                    section = "terminal",
+                    enabled = in_git,
+                    padding = 1,
+                    ttl = 5 * 60,
+                    indent = 3,
+                  }, cmd)
+                end,
+                cmds
+              )
             end,
             { section = "keys", gap = 1, padding = 1 },
           },
@@ -177,77 +211,69 @@ return {
       { "<leader>d", desc = "Dashboard" },
     },
     keys = {
-      { "<leader>dd", "<cmd>lua Snacks.dashboard.open()<CR>", desc = "Open Dashboard" },
-      { "<leader>dg", "<cmd>Snacks dashboard keys<CR>", desc = "Dashboard Keys" },
-      { "<C-e>", "<cmd>lua Snacks.explorer.open()<CR>", desc = "Open File Explorer" },
+      {
+        "<leader>dd",
+        "<cmd>lua Snacks.dashboard.open()<CR>",
+        desc = "Open Dashboard",
+      },
+      {
+        "<leader>dg",
+        "<cmd>Snacks dashboard keys<CR>",
+        desc = "Dashboard Keys",
+      },
+      {
+        "<C-e>",
+        "<cmd>lua Snacks.explorer.open()<CR>",
+        desc = "Open File Explorer",
+      },
       {
         "<leader>uC",
-        function()
-          Snacks.picker.colorschemes()
-        end,
+        function() Snacks.picker.colorschemes() end,
         desc = "Colorschemes",
       },
       {
         "<leader>.",
-        function()
-          Snacks.scratch()
-        end,
+        function() Snacks.scratch() end,
         desc = "Toggle Scratch Buffer",
       },
       {
         "<leader>S",
-        function()
-          Snacks.scratch.select()
-        end,
+        function() Snacks.scratch.select() end,
         desc = "Select Scratch Buffer",
       },
       {
         "<c-/>",
-        function()
-          Snacks.terminal()
-        end,
+        function() Snacks.terminal() end,
         desc = "Toggle Terminal",
       },
       {
         "<c-_>",
-        function()
-          Snacks.terminal()
-        end,
+        function() Snacks.terminal() end,
         desc = "which_key_ignore",
       },
       {
         "<leader>z",
-        function()
-          Snacks.zen()
-        end,
+        function() Snacks.zen() end,
         desc = "Toggle Zen Mode",
       },
       {
         "<leader>z",
-        function()
-          Snacks.zen()
-        end,
+        function() Snacks.zen() end,
         desc = "Toggle Zen Mode",
       },
       {
         "<leader>gg",
-        function()
-          Snacks.lazygit()
-        end,
+        function() Snacks.lazygit() end,
         desc = "Lazygit",
       },
       {
         "<leader>un",
-        function()
-          Snacks.notifier.hide()
-        end,
+        function() Snacks.notifier.hide() end,
         desc = "Dismiss All Notifications",
       },
       {
         "<leader>dr",
-        function()
-          Snacks.rename.rename_file()
-        end,
+        function() Snacks.rename.rename_file() end,
         desc = "Rename File",
       },
     },

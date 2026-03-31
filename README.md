@@ -7,7 +7,6 @@ neovim config from scratch Using MNW [Minimal NeoVim Wrapper](https://github.com
 ![Preview](./assets/mnw-nvim-4.png)
 
 ### 💤 using lz.n as Lazy loading plugins
-
 # 📦 Install
 - This is not meant to be used without nix, but I am pretty sure it works ok.
 

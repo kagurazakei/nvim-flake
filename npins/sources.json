@@ -52,6 +52,19 @@
       "url": "https://github.com/Gerg-L/mnw/archive/6bd6ab9968c2432c78db4a91c9b1e84dd84fe6b3.tar.gz",
       "hash": "sha256-mR8GDvGPu1QcI5Ft5lV2CIIh5Og7zRylts+XY3fa/K4="
     },
+    "neorg": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "nvim-neorg",
+        "repo": "neorg"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "ca524bdf7e68091b1bc5a968cb60e07618472660",
+      "url": "https://github.com/nvim-neorg/neorg/archive/ca524bdf7e68091b1bc5a968cb60e07618472660.tar.gz",
+      "hash": "sha256-ukxw43NfHGTFwi2XV4JGIR14gDMCBDNI/LKZfLITjh4="
+    },
     "neovim": {
       "type": "Git",
       "repository": {

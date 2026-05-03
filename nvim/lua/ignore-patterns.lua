@@ -12,4 +12,7 @@ local languages = {
   nix = { "^result" },
 }
 
-return vim.iter({ dev_directories, unpack(vim.tbl_values(languages)) }):flatten():totable()
+return vim
+  .iter({ dev_directories, unpack(vim.tbl_values(languages)) })
+  :flatten()
+  :totable()

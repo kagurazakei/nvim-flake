@@ -20,13 +20,9 @@ function M.setup_buffer(opts)
 
   local settings = vim.tbl_extend("force", defaults, opts or {})
 
-  if not vim.api.nvim_buf_is_valid(0) then
-    return
-  end
+  if not vim.api.nvim_buf_is_valid(0) then return end
 
-  if settings.highlight then
-    vim.treesitter.start()
-  end
+  if settings.highlight then vim.treesitter.start() end
 
   if settings.fold then
     vim.wo[0][0].foldmethod = "expr"

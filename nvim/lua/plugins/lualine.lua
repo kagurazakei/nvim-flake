@@ -20,9 +20,7 @@ return {
       buffer_not_empty = function()
         return vim.fn.empty(vim.fn.expand("%:t")) ~= 1
       end,
-      hide_in_width = function()
-        return vim.fn.winwidth(0) > 80
-      end,
+      hide_in_width = function() return vim.fn.winwidth(0) > 80 end,
       check_git_workspace = function()
         local filepath = vim.fn.expand("%:p:h")
         local gitdir = vim.fn.finddir(".git", filepath .. ";")
@@ -76,18 +74,14 @@ return {
     end
 
     ins_left({
-      function()
-        return "▊"
-      end,
+      function() return "▊" end,
       color = { fg = colors.blue }, -- Sets highlighting of component
       padding = { left = 0, right = 1 }, -- We don't need space before this
     })
 
     ins_left({
       -- mode component
-      function()
-        return ""
-      end,
+      function() return "" end,
       color = function()
         -- auto change color according to neovims mode
         local mode_color = {
@@ -147,9 +141,7 @@ return {
     -- Insert mid section. You can make any number of sections in neovim :)
     -- for lualine it's any number greater then 2
     ins_left({
-      function()
-        return "%="
-      end,
+      function() return "%=" end,
     })
 
     ins_left({
@@ -158,9 +150,7 @@ return {
         local msg = "No Active Lsp"
         local buf_ft = vim.api.nvim_get_option_value("filetype", { buf = 0 })
         local clients = vim.lsp.get_clients()
-        if next(clients) == nil then
-          return msg
-        end
+        if next(clients) == nil then return msg end
         for _, client in ipairs(clients) do
           local filetypes = client.config.filetypes
           if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
@@ -207,9 +197,7 @@ return {
     })
 
     ins_right({
-      function()
-        return "▊"
-      end,
+      function() return "▊" end,
       color = { fg = colors.blue },
       padding = { left = 1 },
     })

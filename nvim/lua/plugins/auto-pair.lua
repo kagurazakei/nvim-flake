@@ -11,32 +11,27 @@ return {
 
     Autopairs_utils.replacePunctuation = function(lang, punct)
       return Rule("", punct, lang)
-        :with_move(function(opts)
-          return opts.char == punct
-        end)
-        :with_pair(function()
-          return false
-        end)
-        :with_del(function()
-          return false
-        end)
-        :with_cr(function()
-          return false
-        end)
+        :with_move(function(opts) return opts.char == punct end)
+        :with_pair(function() return false end)
+        :with_del(function() return false end)
+        :with_cr(function() return false end)
         :use_key(punct)
     end
 
     -- From wiki: https://github.com/windwp/nvim-autopairs/wiki/Custom-rules#insertion-with-surrounding-check
     Autopairs_utils.surrounding_spaces = function(a1, ins, a2, lang)
       return Rule(ins, ins, lang)
-        :with_pair(function(opts)
-          return a1 .. a2 == opts.line:sub(opts.col - #a1, opts.col + #a2 - 1)
-        end)
+        :with_pair(
+          function(opts)
+            return a1 .. a2 == opts.line:sub(opts.col - #a1, opts.col + #a2 - 1)
+          end
+        )
         :with_move(cond.none())
         :with_cr(cond.none())
         :with_del(function(opts)
           local col = vim.api.nvim_win_get_cursor(0)[2]
-          return a1 .. ins .. ins .. a2 == opts.line:sub(col - #a1 - #ins + 1, col + #ins + #a2) -- insert only works for #ins == 1 anyway
+          return a1 .. ins .. ins .. a2
+            == opts.line:sub(col - #a1 - #ins + 1, col + #ins + #a2) -- insert only works for #ins == 1 anyway
         end)
     end
 

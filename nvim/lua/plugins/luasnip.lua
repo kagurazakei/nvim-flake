@@ -8,17 +8,13 @@ return {
   keys = {
     {
       "<C-h>",
-      function()
-        require("luasnip").jump(-1)
-      end,
+      function() require("luasnip").jump(-1) end,
       mode = { "i", "s" },
       desc = "Jump to previous snippet placeholder",
     },
     {
       "<C-l>",
-      function()
-        require("luasnip").jump(1)
-      end,
+      function() require("luasnip").jump(1) end,
       mode = { "i", "s" },
       desc = "Jump to previous snippet placeholder",
     },

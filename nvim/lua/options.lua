@@ -3,7 +3,8 @@ vim.o.confirm = true
 vim.o.clipboard = "unnamedplus"
 vim.o.cursorline = true
 vim.o.expandtab = true
-vim.opt.fillchars = { fold = " ", foldclose = "", foldopen = "", foldsep = " " }
+vim.opt.fillchars =
+  { fold = " ", foldclose = "", foldopen = "", foldsep = " " }
 vim.o.foldcolumn = "1"
 vim.o.foldlevelstart = 99
 vim.o.guicursor = "n-v-c-sm:block,i-ci-ve:ver25"
@@ -44,6 +45,10 @@ vim.o.winborder = "rounded"
 vim.o.grepformat = "%f:%l:%c:%m"
 vim.o.grepprg = "rg --vimgrep"
 
-if vim.fn.has("nvim-0.12") == 1 then
-  vim.o.pumborder = "rounded"
-end
+if vim.fn.has("nvim-0.12") == 1 then vim.o.pumborder = "rounded" end
+if not vim.g.neovide then return end
+
+local font_size = 15
+vim.o.guifont = "JetBrainsMono Nerd Font" .. ":h" .. font_size
+vim.g.neovide_hide_mouse_when_typing = true
+vim.g.neovide_underline_automatic_scaling = true -- Noticeable for font sizes above 15

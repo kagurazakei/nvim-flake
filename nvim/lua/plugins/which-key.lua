@@ -2,15 +2,11 @@ return {
   {
     "which-key.nvim",
     event = "DeferredUIEnter",
-    after = function()
-      require("which-key").setup({ preset = "modern" })
-    end,
+    after = function() require("which-key").setup({ preset = "modern" }) end,
   },
   {
     "which-colorscheme.nvim",
-    before = function()
-      require("lz.n").trigger_load("which-key")
-    end,
+    before = function() require("lz.n").trigger_load("which-key") end,
     after = function()
       require("which-colorscheme").setup({
         prefix = "<leader>C", -- The prefix to your keymap

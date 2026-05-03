@@ -13,7 +13,7 @@ end
 require("nvim-autopairs").add_rules({
   -- Allow delimiters before a dollar sign within math
   Rule("(", ")", { "typst" }):with_pair(cond.after_text("$")),
-  Rule('"', '"', { "typst" }):with_pair(cond.after_text("$")),
+  Rule("\"", "\"", { "typst" }):with_pair(cond.after_text("$")),
 
   Rule("$", "$", "typst")
     :with_pair(cond.not_after_regex("[%w]"))

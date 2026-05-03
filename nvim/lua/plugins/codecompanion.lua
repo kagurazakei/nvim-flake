@@ -2,8 +2,17 @@ return {
   "codecompanion.nvim",
   cmd = "CodeCompanion",
   keys = {
-    { "<leader>at", "<cmd>CodeCompanionChat Toggle<cr>", desc = "Toggle CodeCompanion chat" },
-    { "<leader>aa", "<cmd>CodeCompanionChat Add<cr>", desc = "Add to CodeCompanion chat", mode = "x" },
+    {
+      "<leader>at",
+      "<cmd>CodeCompanionChat Toggle<cr>",
+      desc = "Toggle CodeCompanion chat",
+    },
+    {
+      "<leader>aa",
+      "<cmd>CodeCompanionChat Add<cr>",
+      desc = "Add to CodeCompanion chat",
+      mode = "x",
+    },
   },
   after = function()
     require("codecompanion").setup({

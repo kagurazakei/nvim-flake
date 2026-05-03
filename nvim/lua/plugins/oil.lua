@@ -20,30 +20,27 @@ return {
           local m = name:match("^%.")
           return m ~= nil
         end,
-        is_always_hidden = function(name, bufnr)
-          return false
-        end,
+        is_always_hidden = function(name, bufnr) return false end,
         natural_order = "fast",
         case_insensitive = false,
         sort = {
           { "type", "asc" },
           { "name", "asc" },
         },
-        highlight_filename = function(entry, is_hidden, is_link_target, is_link_orphan)
+        highlight_filename = function(
+          entry,
+          is_hidden,
+          is_link_target,
+          is_link_orphan
+        )
           return nil
         end,
       },
       git = {
         -- Return true to automatically git add/mv/rm files
-        add = function(path)
-          return false
-        end,
-        mv = function(src_path, dest_path)
-          return false
-        end,
-        rm = function(path)
-          return false
-        end,
+        add = function(path) return false end,
+        mv = function(src_path, dest_path) return false end,
+        rm = function(path) return false end,
       },
       -- Configuration for the floating window in oil.open_float
       float = {
@@ -57,9 +54,7 @@ return {
         },
         get_win_title = nil,
         preview_split = "auto",
-        override = function(conf)
-          return conf
-        end,
+        override = function(conf) return conf end,
       },
       confirmation = {
         max_width = 0.5,
@@ -96,9 +91,7 @@ return {
       preview_win = {
         update_on_cursor_moved = true,
         preview_method = "fast_scratch",
-        disable_preview = function(filename)
-          return false
-        end,
+        disable_preview = function(filename) return false end,
         win_options = {},
         max_width = 40,
         min_width = 40,
@@ -141,27 +134,19 @@ return {
         ["g~"] = function()
           local dir = oil.get_current_dir()
           local entry = oil.get_cursor_entry()
-          if entry == nil then
-            return
-          end
+          if entry == nil then return end
           vim.print(dir .. entry.name)
         end,
         ["<C-f>"] = {
-          function()
-            search_first_char(false, true)
-          end,
+          function() search_first_char(false, true) end,
           mode = "n",
         },
         ["<C-;>"] = {
-          function()
-            search_first_char(true, true)
-          end,
+          function() search_first_char(true, true) end,
           mode = "n",
         },
         ["<C-,>"] = {
-          function()
-            search_first_char(true, false)
-          end,
+          function() search_first_char(true, false) end,
           mode = "n",
         },
 
@@ -208,13 +193,21 @@ return {
       },
     })
 
-    vim.keymap.set("n", "-", "<cmd>Oil --float<CR>", { desc = "Open parent directory" })
+    vim.keymap.set(
+      "n",
+      "-",
+      "<cmd>Oil --float<CR>",
+      { desc = "Open parent directory" }
+    )
     vim.keymap.set("n", "=", "<cmd>Oil<CR>", { desc = "Open parent directory" })
     vim.api.nvim_create_autocmd("User", {
       pattern = "OilActionsPost",
       callback = function(event)
         if event.data.actions[1].type == "move" then
-          Snacks.rename.on_rename_file(event.data.actions[1].src_url, event.data.actions[1].dest_url)
+          Snacks.rename.on_rename_file(
+            event.data.actions[1].src_url,
+            event.data.actions[1].dest_url
+          )
         end
       end,
     })

@@ -25,9 +25,13 @@ return {
         -- client.server_capabilities.documentRangeFormattingProvider = nil
       end,
       root_dir = function(bufnr, on_dir)
-        local matches = vim.fs.find({ "mix.lock" }, { upward = true, limit = 1 })
+        local matches = vim.fs.find(
+          { "mix.lock" },
+          { upward = true, limit = 1 }
+        )
         local child_or_root_path, maybe_umbrella_path = unpack(matches)
-        local root_dir = vim.fs.dirname(maybe_umbrella_path or child_or_root_path)
+        local root_dir =
+          vim.fs.dirname(maybe_umbrella_path or child_or_root_path)
 
         on_dir(root_dir)
       end,
@@ -90,11 +94,11 @@ return {
           },
 
           nixpkgs = {
-            expr = 'import (builtins.getFlake "/home/antonio/nixos/").inputs.nixpkgs { }',
+            expr = "import (builtins.getFlake \"/home/antonio/nixos/\").inputs.nixpkgs { }",
           },
           options = {
             nixos = {
-              expr = '(builtins.getFlake "/home/antonio/nixos").nixosConfigurations.hana.options',
+              expr = "(builtins.getFlake \"/home/antonio/nixos\").nixosConfigurations.hana.options",
             },
           },
           formatting = {

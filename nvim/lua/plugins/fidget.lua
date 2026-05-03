@@ -16,9 +16,7 @@ return {
             return client and client.name or nil
           end,
           -- How to get a progress message's notification group key
-          notification_group = function(msg)
-            return msg.lsp_client.name
-          end,
+          notification_group = function(msg) return msg.lsp_client.name end,
           ignore = {}, -- List of LSP servers to ignore
 
           -- Options related to how LSP progress messages are displayed as notifications
@@ -39,13 +37,9 @@ return {
             -- How to format a progress message
             format_message = require("fidget.progress.display").default_format_message,
             -- How to format a progress annotation
-            format_annote = function(msg)
-              return msg.title
-            end,
+            format_annote = function(msg) return msg.title end,
             -- How to format a progress notification group's name
-            format_group_name = function(group)
-              return tostring(group)
-            end,
+            format_group_name = function(group) return tostring(group) end,
             overrides = { -- Override options from the default notification config
               rust_analyzer = { name = "rust-analyzer" },
             },
@@ -69,7 +63,11 @@ return {
           -- Conditionally redirect notifications to another backend
           redirect = function(msg, level, opts)
             if opts and opts.on_open then
-              return require("fidget.integration.nvim-notify").delegate(msg, level, opts)
+              return require("fidget.integration.nvim-notify").delegate(
+                msg,
+                level,
+                opts
+              )
             end
           end,
 

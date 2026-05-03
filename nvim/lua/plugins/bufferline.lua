@@ -2,9 +2,7 @@ return {
   {
     "bufferline.nvim",
     event = "DeferredUIEnter",
-    before = function()
-      require("lz.n").trigger_load("nvim-web-devicons")
-    end,
+    before = function() require("lz.n").trigger_load("nvim-web-devicons") end,
     after = function()
       require("bufferline").setup({
         options = {
@@ -32,21 +30,30 @@ return {
           persist_buffer_sort = true,
           enforce_regular_tabs = false,
           always_show_bufferline = false,
-          offsets = { { filetype = "NvimTree", text = "File Explorer", text_align = "left" } },
+          offsets = {
+            {
+              filetype = "NvimTree",
+              text = "File Explorer",
+              text_align = "left",
+            },
+          },
           sort_by = "extension",
           diagnostics = "nvim_lsp",
           diagnostics_indicator = function(_, _, diagnostics_dict, _)
             local s = ""
             for e, n in pairs(diagnostics_dict) do
-              local sym = e == "error" and "" or (e == "warning" and "" or "")
-              if sym ~= "" then
-                s = s .. " " .. n .. sym
-              end
+              local sym = e == "error" and ""
+                or (e == "warning" and "" or "")
+              if sym ~= "" then s = s .. " " .. n .. sym end
             end
             return s
           end,
           numbers = function(opts)
-            return string.format("%s·%s", opts.raise(opts.id), opts.lower(opts.ordinal))
+            return string.format(
+              "%s·%s",
+              opts.raise(opts.id),
+              opts.lower(opts.ordinal)
+            )
           end,
         },
       })
@@ -71,7 +78,11 @@ return {
       { "<leader>bn", ":BufferLineCycleNext<CR>", desc = "Next" },
       { "<leader>bp", ":BufferLineCyclePrev<CR>", desc = "Prev" },
       { "<leader>bsd", ":BufferLineSortByDirectory<CR>", desc = "Sort by dir" },
-      { "<leader>bse", ":BufferLineSortByExtension<CR>", desc = "Sort by extension" },
+      {
+        "<leader>bse",
+        ":BufferLineSortByExtension<CR>",
+        desc = "Sort by extension",
+      },
     },
   },
 }

@@ -55,12 +55,15 @@ return {
                   return require("colorful-menu").blink_components_text(ctx)
                 end,
                 highlight = function(ctx)
-                  return require("colorful-menu").blink_components_highlight(ctx)
+                  return require("colorful-menu").blink_components_highlight(
+                    ctx
+                  )
                 end,
               },
               kind_icon = {
                 text = function(ctx)
-                  local kind_icon, _, _ = require("mini.icons").get("lsp", ctx.kind)
+                  local kind_icon, _, _ =
+                    require("mini.icons").get("lsp", ctx.kind)
                   return kind_icon
                 end,
 

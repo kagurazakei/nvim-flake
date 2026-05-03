@@ -63,7 +63,7 @@ mnw.lib.wrap pkgs {
   ];
   plugins = {
     dev.config = {
-      impure = "~/Projects/nvim-flake";
+      impure = "~/Templates/Projects/nvim-flake";
       pure = lib.fileset.toSource {
         root = ./nvim;
         fileset = lib.fileset.unions [
@@ -83,6 +83,7 @@ mnw.lib.wrap pkgs {
       "neorg" = vimPlugins-neorg.neorg;
       "base16-nvim" = pkgs.vimPlugins.base16-nvim;
       "catppuccin-nvim" = pkgs.vimPlugins.catppuccin-nvim;
+      "blink.pairs" = pkgs.vimPlugins.blink-pairs;
     };
     startAttrs = mnw.lib.npinsToPluginsAttrs pkgs ./start-plugins.json // {
       inherit (pkgs.vimPlugins) nvim-treesitter;
@@ -153,7 +154,7 @@ mnw.lib.wrap pkgs {
     "NEOVIM_CONFIG"
     (
       if dev then
-        "~/Projects/nvim-flake"
+        "~/Templates/Projects/nvim-flake"
       else
         (lib.fileset.toSource {
           root = ./nvim;

@@ -1,8 +1,24 @@
 return {
   "neorg",
   cmd = "Neorg",
-  build = ":Neorg sync-parsers",
   ft = "norg",
+  keys = {
+    {
+      "<leader>nt",
+      "<CMD>Neorg toc left<CR>",
+      desc = "Neorg Table of contents",
+    },
+    {
+      "<leader>nj",
+      "<CMD>Neorg journal today<CR>",
+      desc = "Neorg Journal Today",
+    },
+    {
+      "<leader>nJ",
+      "<CMD>Neorg journal toc update<CR>",
+      desc = "Neorg Journal TOC",
+    },
+  },
   after = function()
     require("neorg").setup({
       load = {
@@ -17,10 +33,10 @@ return {
         ["core.dirman"] = {
           config = {
             workspaces = {
-              notes = "~/Documents/notes",
-              work = "~/Documents/oracle",
+              notes = "~/Documents/Mine/Notes",
+              oracle = "~/Everwinter/md/oracle/",
+              journal = "~/Documents/Mine/Brain/",
             },
-            default_workspace = "notes", -- Sets 'notes' as the default workspace on startup
           },
         },
         ["core.journal"] = {
@@ -51,9 +67,7 @@ return {
                 -- hey if it was gonna be a fucking
                 -- string in the first place why not pad it .w.
                 local day_pad = ""
-                if tonumber(entry[3]) < 10 then
-                  day_pad = "0"
-                end
+                if tonumber(entry[3]) < 10 then day_pad = "0" end
                 if not current_year or current_year < entry[1] then
                   current_year = entry[1]
                   current_month = nil
@@ -63,7 +77,12 @@ return {
                   current_month = entry[2]
                   table.insert(output, "** " .. months_text[current_month])
                 end
-                table.insert(output, "   " .. entry[4] .. string.format("[%s| %s]", day_pad .. entry[3], entry[5]))
+                table.insert(
+                  output,
+                  "   "
+                    .. entry[4]
+                    .. string.format("[%s| %s]", day_pad .. entry[3], entry[5])
+                )
               end
               return output
             end,

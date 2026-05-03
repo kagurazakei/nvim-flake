@@ -1,5 +1,8 @@
 return {
   {
+    "ui",
+  },
+  {
     "base16-nvim",
     after = function()
       require("base16-colorscheme").with_config({
@@ -66,9 +69,7 @@ return {
         transparent = false,
         lualine_bold = true,
         styles = { sidebars = "transparent", floats = "transparent" },
-        on_colors = function(colors)
-          colors.bg_statusline = nil
-        end,
+        on_colors = function(colors) colors.bg_statusline = nil end,
         on_highlights = function(hl, c)
           hl.ColorColumn = { bg = c.none }
           hl.TabLineFill = { bg = c.none }

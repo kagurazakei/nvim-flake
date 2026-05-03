@@ -27,7 +27,7 @@ return {
           {
             filter = {
               event = "msg_show",
-              find = 'is deprecated. Run ":checkhealth vim.deprecated" for more information',
+              find = "is deprecated. Run \":checkhealth vim.deprecated\" for more information",
             },
             opts = { skip = true },
           },
@@ -35,8 +35,18 @@ return {
             filter = {
               event = "notify",
               cond = function()
-                return vim.api.nvim_get_mode().mode:match("i")
+                local mode = vim.api.nvim_get_mode().mode
+                return mode:match("^[iR]")
               end,
+              -- Optional: only filter certain kinds of notifications
+              -- kind = "info",  -- or "warn", "error", etc.
+            },
+            opts = { skip = true },
+          },
+          {
+            filter = {
+              event = "notify",
+              cond = function() return vim.api.nvim_get_mode().mode:match("i") end,
             },
             opts = { skip = true },
           },
@@ -58,8 +68,18 @@ return {
 
         format = {
           cmdline = { pattern = "^:", icon = "", lang = "vim" },
-          search_down = { kind = "search", pattern = "^/", icon = " ", lang = "regex" },
-          search_up = { kind = "search", pattern = "^%?", icon = " ", lang = "regex" },
+          search_down = {
+            kind = "search",
+            pattern = "^/",
+            icon = " ",
+            lang = "regex",
+          },
+          search_up = {
+            kind = "search",
+            pattern = "^%?",
+            icon = " ",
+            lang = "regex",
+          },
           filter = { pattern = "^:%s*!", icon = "", lang = "bash" },
           lua = { pattern = "^:%s*lua%s+", icon = "", lang = "lua" },
           help = { pattern = "^:%s*he?l?p?%s+", icon = "" },

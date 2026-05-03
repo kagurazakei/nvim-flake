@@ -2,7 +2,6 @@ return {
   {
     "better-escape.nvim",
     event = "InsertEnter",
-    enabled = true,
     after = function()
       require("better_escape").setup({
         timeout = 200,
